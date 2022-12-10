@@ -1,14 +1,5 @@
 # Chapter 3 - Finding Elements
 
-## How does Playwright interact with the web application?
-
-Playwright is a low-level library for automating web browsers, so it does not interact directly with your web application. Instead, it uses the web browser's APIs to control the browser and interact with the web page.
-
-For example, if you want to fill out a form on a web page using Playwright, you would use the browser's fill method to enter the form data into the appropriate fields. Playwright would then use the browser's APIs to send the data to the web page and submit the form. The web application would then receive the data and process it as usual.
-
-In this way, Playwright acts as a middleman between your tests and the web application. It allows you to automate the browser and interact with the web page, without needing to worry about the details of how the web application works or how it processes the data. This makes it easier to write reliable and maintainable tests for your web application.
-
-
 ## How does Playwright identifies HTML elements?
 
 Playwright uses CSS selectors to identify HTML elements on a web page. CSS selectors are patterns that match specific elements based on their attributes and relationship to other elements in the page.
