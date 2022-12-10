@@ -84,6 +84,18 @@ const playwright = require('playwright');
 
 The `input.type` method is used to type the desired value into the textbox. This method simulates a user typing on a keyboard, and will trigger any associated events or actions in the web page.
 
+#### The `fill` method
+
+The process of filling a textbox in Playwright is similar to typing a value into a textbox, as shown in the previous example. Here is an example of how you could use Playwright to fill a textbox with a specific value:
+
+```javascript
+// Find the input textbox on the page
+const input = await page.$('input[type="text"]');
+
+// Fill the textbox with the desired value
+await input.fill('Hello, world!');
+```
+
 ### Getting value from the input textbox
 
 Here is an example of how you could use Playwright to get the value of an input textbox on a web page:
@@ -222,3 +234,50 @@ const playwright = require('playwright');
 ```
 
 The `dropdown.getValue` method is used to get the currently selected option from the menu. This method will return the value of the selected option, or an empty string if no option is selected.
+
+## Working with Checkbox input element
+
+Here is an example of how you could use Playwright to select and unselect a checkbox on a web page:
+
+```javascript
+const playwright = require('playwright');
+
+(async () => {
+  // Start a new browser instance
+  const browser = await playwright.chromium.launch();
+
+  // Create a new page
+  const page = await browser.newPage();
+
+  // Navigate to a web page
+  await page.goto('https://example.com');
+
+  // Find the checkbox on the page
+  const checkbox = await page.$('input[type="checkbox"]');
+
+  // Check if the checkbox is currently selected
+  const isChecked = await checkbox.getAttribute('checked');
+
+  // Select or unselect the checkbox, depending on its current state
+  if (isChecked) {
+    await checkbox.uncheck();
+  } else {
+    await checkbox.check();
+  }
+
+  // Wait for the page to update
+  await page.waitForSelector('#selected-items', { visible: true });
+
+  // Close the browser
+  await browser.close();
+})();
+```
+
+In this example, the `playwright.chromium.launch` method is used to start a new browser instance, and the `browser.newPage` method is used to create a new page. The `page.goto` method is then used to navigate to a web page, and the `page.$` method is used to find the input element on the page (i.e. the checkbox).
+
+Note that the input element in this example has a `type` attribute set to "checkbox", which indicates that it is a checkbox. This is necessary because the `check` and `uncheck` methods can only be used with checkbox elements.
+
+Once the checkbox is found, the `checkbox.getAttribute` method is used to get the current value of the "checked" attribute. This attribute is set to "true" if the checkbox is selected, or "false" if it is unselected.
+
+The `if` statement then checks the value of the "checked" attribute, and either selects or unselects
+
