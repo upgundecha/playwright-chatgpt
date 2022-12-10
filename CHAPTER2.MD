@@ -136,3 +136,82 @@ describe('Google search', () => {
 
 This test case uses Playwright to control the browser and interact with the page, and Jest to structure the test and make assertions about the page. It navigates to Google, performs a search for "Playwright", and checks if the page contains the expected text.
 Note that this is just a simple example to illustrate how to use Playwright and Jest together. You may need to adjust the code to fit your specific needs. For example, you may want to add more test cases or make more detailed assertions about the page.
+
+## Playwright and Cucumber
+
+Cucumber is a tool for behavior-driven development (BDD) that allows developers to define and automate acceptance tests. It uses a language called Gherkin to define test cases in a natural, human-readable language.
+
+Here is an example of a simple Cucumber test using Gherkin:
+
+```gherkin
+Feature: Google search
+  As a user
+  I want to search for things on Google
+  So that I can find what I'm looking for
+
+  Scenario: Search for Playwright
+    Given I am on the Google homepage
+    When I search for "Playwright"
+    Then the page should contain "Playwright"
+``
+This test defines a feature called "Google search", which describes the functionality that the test is testing. It then defines a scenario called "Search for Playwright", which describes the steps that the test will take. The steps are written in Gherkin and use a natural language to describe what the test will do.
+
+To use Cucumber with Playwright, you will need to install both libraries in your project. Here is a step-by-step guide:
+
+1. Install Node.js and npm (the Node.js package manager) on your computer. You can download and install them from the official Node.js website (https://nodejs.org/en/).
+2. Create a new directory for your project and navigate to it in the terminal or command prompt.
+3. Install Playwright and its dependencies by running the following command:
+```
+npm install playwright
+```
+4. Install Cucumber and its dependencies by running the following command:
+```
+npm install cucumber
+```
+Create a new file in your project directory and name it index.js. This will be the main script file for your Cucumber tests.
+
+Open the file in your code editor and add the following code to it:
+```javascript
+const { Given, When, Then } = require('cucumber');
+const playwright = require('playwright');
+
+Given('I am on the Google homepage', async function() {
+  // Start a new browser instance
+  this.browser = await playwright.chromium.launch();
+
+  // Create a new page
+  this.page = await this.browser.newPage();
+
+  // Navigate to Google
+  await this.page.goto('https://www.google.com/');
+});
+
+When('I search for {string}', async function(query) {
+  // Type the search query into the search box
+  await this.page.fill('input[name="q"]', query);
+
+  // Submit the search form
+  await this.page.click('input[type="submit"]');
+
+  // Wait for the search results to load
+  await this.page.waitForSelector('#search');
+});
+
+Then('the page should contain {string}', async function(text) {
+  // Check if the page contains the expected text
+  const pageText = await this.page.evaluate(() => document.body.textContent);
+  expect(pageText).toContain(text);
+
+  // Close the browser
+  await this.browser.close();
+});
+```
+This code defines a simple Cucumber test that uses Playwright to control the browser and interact with the page. It navigates to Google, performs a search, and checks if the page contains the expected text.
+
+7. Save the file and run it using the following command:
+```
+node index.js
+```
+This code defines a Cucumber test that uses Playwright to control the browser and interact with the page. It navigates to Google, performs a search, and checks if the page contains the expected text.
+
+You can use Cucumber with Playwright to define and automate acceptance tests for your web application. This can help ensure that your application behaves as expected and meets the needs of your users.
