@@ -8,7 +8,6 @@ For example, if you want to fill out a form on a web page using Playwright, you 
 
 In this way, Playwright acts as a middleman between your tests and the web application. It allows you to automate the browser and interact with the web page, without needing to worry about the details of how the web application works or how it processes the data. This makes it easier to write reliable and maintainable tests for your web application.
 
-
 ## Performing click action on element
 
 Here is an example of how you could use Playwright to click on a button on a web page:
@@ -49,6 +48,59 @@ After clicking on the button, the `page.waitForNavigation` method is used to wai
 Finally, the `browser.close` method is used to close the browser instance and clean up any resources.
 
 Overall, this code shows how you can use Playwright to find and interact with elements on a web page, such as clicking on a button. You can use similar approaches
+
+## Working with input textbox element
+
+### Typing a value in a input textbox element
+
+Here is an example of how you could use Playwright to type a value into an input textbox on a web page:
+
+```javascript
+const playwright = require('playwright');
+
+(async () => {
+  // Start a new browser instance
+  const browser = await playwright.chromium.launch();
+
+  // Create a new page
+  const page = await browser.newPage();
+
+  // Navigate to a web page
+  await page.goto('https://example.com');
+
+  // Find the input textbox on the page
+  const input = await page.$('input[type="text"]');
+
+  // Type the desired value into the textbox
+  await input.type('Hello, world!');
+
+  // Wait for the page to update
+  await page.waitForSelector('#typed-text', { visible: true });
+
+  // Close the browser
+  await browser.close();
+})();
+```
+
+The `input.type` method is used to type the desired value into the textbox. This method simulates a user typing on a keyboard, and will trigger any associated events or actions in the web page.
+
+### Getting value from the input textbox
+
+Here is an example of how you could use Playwright to get the value of an input textbox on a web page:
+
+```javascript
+
+// Find the input textbox on the page
+const input = await page.$('input[type="text"]');
+
+// Get the value of the input textbox
+const value = await input.getValue();
+
+// Print the value to the console
+console.log(value);
+```
+
+The `input.getValue` method is used to get the current value of the textbox. This method will return the value of the textbox, or an empty string if the textbox is empty.
 
 ## Working with Dropdown element
 
@@ -121,7 +173,7 @@ const playwright = require('playwright');
 
 The `dropdown.selectOption` method is used to select the desired option from the menu. This will simulate a user clicking on the option with their mouse, and will trigger any associated events or actions in the web page.
 
-#### Selecting multiple items
+#### Selecting multiple options in a multi-select Dropdown element
 
 Here is an example of how you could use Playwright to select multiple items from a dropdown menu on a web page:
 
