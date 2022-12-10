@@ -7,27 +7,39 @@ Here is an example that shows how to use the `playwright.each` method to use mul
 ```javascript
 const playwright = require('playwright');
 
-const parameters = [
-  { name: 'Chrome', browser: 'chromium' },
-  { name: 'Firefox', browser: 'firefox' },
-  { name: 'Safari', browser: 'webkit' },
+const data = [
+  { input: 'foo', expected: 'FOO' },
+  { input: 'bar', expected: 'BAR' },
+  { input: 'baz', expected: 'BAZ' },
 ];
 
 describe('My test', () => {
-  playwright.each(parameters).it('should run on $name', async ({ browser }) => {
+  playwright.each(data).it('should convert $input to $expected', async ({ input, expected }) => {
     // Start a new browser instance
-    const b = await playwright[browser].launch();
+    const browser = await playwright.chromium.launch();
 
     // Create a new page
-    const page = await b.newPage();
+    const page = await browser.newPage();
 
     // Navigate to a web page
     await page.goto('https://example.com');
 
-    // Perform some actions on the page
+    // Enter the input value in the text field
+    await page.type('#input', input);
+
+    // Click the submit button
+    await page.click('#submit');
+
+    // Get the output value from the page
+    const output = await page.evaluate(() => {
+      return document.querySelector('#output').innerText;
+    });
+
+    // Verify that the output value is as expected
+    expect(output).toEqual(expected);
 
     // Close the browser
-    await b.close();
+    await browser.close();
   });
 });
 ```
