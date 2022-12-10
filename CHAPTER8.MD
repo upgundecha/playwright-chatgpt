@@ -52,3 +52,51 @@ Playwright supports retrying tests to improve their reliability. When a test fai
 
 To configure test retries in Playwright, you can use the `playwright.retry` method, which takes an options object that specifies the settings for the retries. Here is an example that shows how to use the `playwright.retry` method to retry failed tests up to three times:
 
+```javascript
+const playwright = require('playwright');
+
+playwright.retry({ maxRetries: 3 });
+```
+In this example, the `playwright.retry` method is used to configure test retries, with the `maxRetries` option set to `3`. This means that any failed tests will be automatically retried up to three times, and the test will only be considered failed if it still fails after all three retries.
+
+You can also specify other options for the retries, such as the `delayBeforeRetry` option, which specifies the delay before retrying a failed test, or the factor option, which specifies the factor by which the delay should be increased after each retry.
+
+Overall, the `playwright.retry` method provides a convenient way to configure test retries in Playwright, and can improve the reliability of your tests by automatically retrying failed tests to see if they pass on a subsequent attempt.
+
+## Recording video of the test run
+
+Playwright supports recording videos of your tests as they are running, which can be useful for debugging or documenting your tests. To record a video of a test using Playwright, you can use the `page.video` method, which takes an options object that specifies the settings for the video recording.
+
+Here is an example that shows how to use the `page.video` method to record a video of a test:
+
+```javascript
+const playwright = require('playwright');
+
+(async () => {
+  // Start a new browser instance
+  const browser = await playwright.chromium.launch();
+
+  // Create a new page
+  const page = await browser.newPage();
+
+  // Start recording a video of the test
+  const video = await page.video({ dir: './videos' });
+
+  // Navigate to a web page
+  await page.goto('https://example.com');
+
+  // Perform some actions on the page
+
+  // Stop recording the video
+  const videoPath = await video.stop();
+
+  // Close the browser
+  await browser.close();
+})();
+```
+
+In this example, the `playwright.chromium.launch` method is used to start a new browser instance, and the `browser.newPage` method is used to create a new page. The `page.video` method is then used to start recording a video of the test, with the dir option set to `./videos` to specify the directory where the video will be saved.
+
+Once the video recording is started, the `page.goto` method is used to navigate to a web page, and the test performs some actions on the page. When the test is finished, the `video.stop` method is used to stop recording the video, and the `videoPath` variable is assigned the path of the saved video file. Finally, the `browser.close` method is used to close the browser instance and clean up any resources.
+
+Overall, this code shows how you can use Playwright to record a video of a test as it is running, which can be useful for debugging or documenting your tests. You can use similar approaches to record videos of other tests or scenarios in your code.
