@@ -215,6 +215,5 @@ This code defines a simple Cucumber test that uses Playwright to control the bro
 ```
 node index.js
 ```
-This code defines a Cucumber test that uses Playwright to control the browser and interact with the page. It navigates to Google, performs a search, and checks if the page contains the expected text.
 
 You can use Cucumber with Playwright to define and automate acceptance tests for your web application. This can help ensure that your application behaves as expected and meets the needs of your users.
