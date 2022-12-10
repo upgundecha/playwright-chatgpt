@@ -346,7 +346,7 @@ Once the checkbox is found, the `checkbox.getAttribute` method is used to get th
 
 The `if` statement then checks the value of the "checked" attribute, and either selects or unselects
 
-### Working with Radiobutton input element
+## Working with Radio button input element
 
 Here is an example of how you could use Playwright to select a radio button on a web page:
 
@@ -475,3 +475,21 @@ const playwright = require('playwright');
 The `element.getAttribute` method is used to get the value of the "disabled" attribute for the element. This attribute determines whether or not the element is enabled on the page.
 
 If the "disabled" attribute is set to "true", it means that the element is not enabled on the page, and the `isEnabled` variable is set to `false`. Otherwise, the `isEnabled` variable is set to `true`, indicating that the element is enabled on the page.
+
+## The `page` object in Playwright
+
+In Playwright, the `page` object represents a web page in a browser, and provides various methods that you can use to interact with the page and its content. Some examples of page methods in Playwright include:
+
+- `page.click`: This method simulates a mouse click on a given element on the page.
+- `page.fill`: This method fills a form field on the page with a given value.
+- `page.focus`: This method focuses a given element on the page, so that it can be interacted with.
+- `page.goto`: This method navigates the page to a given URL.
+- `page.hover`: This method simulates a mouse hover over a given element on the page.
+- `page.screenshot`: This method takes a screenshot of the page and saves it to a file.
+- `page.type`: This method simulates typing into a given element on the page.
+- `page.waitForSelector`: This method waits for a given element to appear on the page, before continuing with the script.
+- `page.$`: This method returns the first element on the page that matches a given CSS selector.
+
+These are just a few examples of page methods in Playwright. There are many other methods available, which you can use to perform various actions on the page, such as interacting with elements, extracting information from the page, and more.
+
+Overall, the page object in Playwright provide a powerful set of tools for automating and testing web pages, and are an essential part of the Playwright API.
