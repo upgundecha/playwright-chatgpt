@@ -522,3 +522,36 @@ const playwright = require('playwright');
 })();
 ```
 Once the element is found, the `element.screenshot` method is used to take a screenshot of the element and save it to a file. This method takes an options object as an argument, which can be used to specify the `path` where the screenshot should be saved. The screenshot is then saved to the specified file using the `path` option, 
+
+## Getting Size and Location of an element
+
+To get the size and location of an element on a web page using Playwright, you can use the `element.boundingBox` method, as shown in the following example:
+
+```javascript
+const playwright = require('playwright');
+
+(async () => {
+  // Start a new browser instance
+  const browser = await playwright.chromium.launch();
+
+  // Create a new page
+  const page = await browser.newPage();
+
+  // Navigate to a web page
+  await page.goto('https://example.com');
+
+  // Find the element on the page
+  const element = await page.$('#some-element');
+
+  // Get the size and location of the element
+  const { x, y, width, height } = await element.boundingBox();
+
+  // Print the size and location of the element to the console
+  console.log(`Element is located at x=${x}, y=${y}, and has a width of ${width} and a height of ${height}.`);
+
+  // Close the browser
+  await browser.close();
+})();
+```
+
+The `element.boundingBox method` is used to get the size and location of the element. This method returns an object with the properties `x`, `y`, `width`, and `height`, which represent the coordinates of the top-left corner of the element, as well as the element's width and height, respectively.
