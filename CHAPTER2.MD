@@ -153,7 +153,8 @@ Feature: Google search
     Given I am on the Google homepage
     When I search for "Playwright"
     Then the page should contain "Playwright"
-``
+```
+
 This test defines a feature called "Google search", which describes the functionality that the test is testing. It then defines a scenario called "Search for Playwright", which describes the steps that the test will take. The steps are written in Gherkin and use a natural language to describe what the test will do.
 
 To use Cucumber with Playwright, you will need to install both libraries in your project. Here is a step-by-step guide:
@@ -168,9 +169,10 @@ npm install playwright
 ```
 npm install cucumber
 ```
-Create a new file in your project directory and name it index.js. This will be the main script file for your Cucumber tests.
+5. Create a new file in your project directory and name it index.js. This will be the main script file for your Cucumber tests.
 
-Open the file in your code editor and add the following code to it:
+6. Open the file in your code editor and add the following code to it:
+
 ```javascript
 const { Given, When, Then } = require('cucumber');
 const playwright = require('playwright');
@@ -206,6 +208,7 @@ Then('the page should contain {string}', async function(text) {
   await this.browser.close();
 });
 ```
+
 This code defines a simple Cucumber test that uses Playwright to control the browser and interact with the page. It navigates to Google, performs a search, and checks if the page contains the expected text.
 
 7. Save the file and run it using the following command:
