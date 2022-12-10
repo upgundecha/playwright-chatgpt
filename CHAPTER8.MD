@@ -46,5 +46,9 @@ Here are some recommendations for running Playwright tests in a continuous integ
 Overall, by following these recommendations, you can improve the reliability and efficiency of your Playwright tests in a CI environment, and ensure that your code is properly tested and working as expected.
 
 
+## Test retries
 
+Playwright supports retrying tests to improve their reliability. When a test fails, Playwright will automatically retry the test to see if it passes on a subsequent attempt.
+
+To configure test retries in Playwright, you can use the `playwright.retry` method, which takes an options object that specifies the settings for the retries. Here is an example that shows how to use the `playwright.retry` method to retry failed tests up to three times:
 
