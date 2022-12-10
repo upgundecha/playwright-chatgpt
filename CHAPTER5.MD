@@ -1,4 +1,4 @@
-# Chapter 5 - Mouse and Keyboard Actions
+# Chapter 5 - Performing Keyboard and Mouse Events
 
 ## How to perform keyboard events
 
