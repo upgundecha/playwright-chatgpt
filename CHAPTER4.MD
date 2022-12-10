@@ -114,9 +114,74 @@ console.log(value);
 
 The `input.getValue` method is used to get the current value of the textbox. This method will return the value of the textbox, or an empty string if the textbox is empty.
 
-## Working with Dropdown element
+## Get attribute value of an element
 
-### Getting options from the Dropdown element
+To get the value of an attribute for an element in Playwright, you can use the `element.getAttribute` method, as shown in the following example:
+
+```javascript
+const playwright = require('playwright');
+
+(async () => {
+  // Start a new browser instance
+  const browser = await playwright.chromium.launch();
+
+  // Create a new page
+  const page = await browser.newPage();
+
+  // Navigate to a web page
+  await page.goto('https://example.com');
+
+  // Find the element on the page
+  const element = await page.$('#some-element');
+
+  // Get the value of the "id" attribute for the element
+  const id = await element.getAttribute('id');
+
+  // Print the value of the "id" attribute to the console
+  console.log(id);
+
+  // Close the browser
+  await browser.close();
+})();
+```
+The `element.getAttribute` method is used to get the value of the "id" attribute for the element. This method returns a promise that resolves with the value of the attribute, or `null` if the attribute is not set for the element.
+
+## Get CSS property of an element
+
+To get the value of a CSS property for an element in Playwright, you can use the `element.getStyleProperty` method, as shown in the following example:
+
+```javascript
+const playwright = require('playwright');
+
+(async () => {
+  // Start a new browser instance
+  const browser = await playwright.chromium.launch();
+
+  // Create a new page
+  const page = await browser.newPage();
+
+  // Navigate to a web page
+  await page.goto('https://example.com');
+
+  // Find the element on the page
+  const element = await page.$('#some-element');
+
+  // Get the value of the "display" CSS property for the element
+  const display = await element.getStyleProperty('display');
+
+  // Print the value of the "display" property to the console
+  console.log(display);
+
+  // Close the browser
+  await browser.close();
+})();
+```
+
+The `element.getStyleProperty` method is used to get the value of the "display" CSS property for the element. This method returns a promise that resolves with the value of the property, or `null` if the property is not set for the element.
+
+## Working with Select element
+
+### Getting options from the Select element
 
 Here is an example of how you could use Playwright to get all the options from a dropdown menu on a web page:
 
@@ -152,7 +217,7 @@ The `dropdown.$$eval` method is used to evaluate a JavaScript function that find
 The options are then printed to the console using the `console.log` method. You can use this array in any way you want, such as verifying that it contains the expected options, or using it to perform further actions on the page.
 
 
-### Selecting an option from the Dropdown element
+### Selecting an option from the Select element
 
 Here is an example of how you could use Playwright to select an item from a dropdown menu on a web page:
 
@@ -202,7 +267,7 @@ await dropdown.selectOption('Option 4');
 The `dropdown.selectOption` method is used to select the desired options from the menu. This method can be called multiple times to select multiple options.
 
 
-### Getting selected item from the Dropdown element
+### Getting selected item from the Select element
 
 Here is an example of how you could use Playwright to get the selected item from a dropdown menu on a web page:
 
@@ -281,3 +346,132 @@ Once the checkbox is found, the `checkbox.getAttribute` method is used to get th
 
 The `if` statement then checks the value of the "checked" attribute, and either selects or unselects
 
+### Working with Radiobutton input element
+
+Here is an example of how you could use Playwright to select a radio button on a web page:
+
+```javascript
+const playwright = require('playwright');
+
+(async () => {
+  // Start a new browser instance
+  const browser = await playwright.chromium.launch();
+
+  // Create a new page
+  const page = await browser.newPage();
+
+  // Navigate to a web page
+  await page.goto('https://example.com');
+
+  // Find the radio button on the page
+  const radioButton = await page.$('input[type="radio"][value="option1"]');
+
+  // Check if the radio button is currently selected
+  const isChecked = await radioButton.getAttribute('checked');
+
+  // Select the radio button, if it is not already selected
+  if (!isChecked) {
+    await radioButton.click();
+  }
+
+  // Wait for the page to update
+  await page.waitForSelector('#selected-option', { visible: true });
+
+  // Close the browser
+  await browser.close();
+})();
+```
+
+The input element in this example has a `type` attribute set to "radio" and a `value` attribute set to "option1". This is necessary because the click method can only be used with radio buttons that have a specific value.
+
+Once the radio button is found, the `radioButton.getAttribute` method is used to get the current value of the "checked" attribute. This attribute is set to "true" if the radio button is selected, or "false" if it is unselected.
+
+The `if` statement then checks the value of the "checked" attribute, and only selects the radio button if
+
+## Inspecting element state
+
+### Element is visible
+
+Here is an example of how you could use Playwright to check if an element is visible on a web page:
+
+```javascript
+const playwright = require('playwright');
+
+(async () => {
+  // Start a new browser instance
+  const browser = await playwright.chromium.launch();
+
+  // Create a new page
+  const page = await browser.newPage();
+
+  // Navigate to a web page
+  await page.goto('https://example.com');
+
+  // Find the element on the page
+  const element = await page.$('#some-element');
+
+  // Check if the element is visible
+  const isVisible = await element.isIntersectingViewport();
+
+  // Print the result to the console
+  console.log(isVisible);
+
+  // Close the browser
+  await browser.close();
+})();
+```
+The `element.isIntersectingViewport` method is used to check if the element is visible. This method returns `true` if the element is visible, or `false` if it is not visible (e.g. because it is hidden, or because it is outside the viewport).
+
+The result of the `isIntersectingViewport` method is then printed to the console using the `console.log` method, so that you can see if the element is visible or not.
+
+There is another method using the "display" CSS property for the element.
+
+```javascript
+// Find the element on the page
+const element = await page.$('#some-element');
+
+// Check if the element is displayed
+const isDisplayed = await element.getStyleProperty('display') !== 'none';
+
+// Print the result to the console
+console.log(isDisplayed);
+```
+
+The `element.getStyleProperty` method is used to get the value of the "display" CSS property for the element. This property determines whether or not the element is displayed on the page.
+
+If the "display" property is set to "none", it means that the element is not displayed on the page, and the `isDisplayed` variable is set to `false`. Otherwise, the `isDisplayed` variable is set to `true`, indicating that the element is displayed on the page.
+
+### Element is enabled
+
+Here is an example of how you could use Playwright to check if an element is enabled on a web page:
+
+```javascript
+const playwright = require('playwright');
+
+(async () => {
+  // Start a new browser instance
+  const browser = await playwright.chromium.launch();
+
+  // Create a new page
+  const page = await browser.newPage();
+
+  // Navigate to a web page
+  await page.goto('https://example.com');
+
+  // Find the element on the page
+  const element = await page.$('#some-element');
+
+  // Check if the element is enabled
+  const isEnabled = await element.getAttribute('disabled') !== 'true';
+
+  // Print the result to the console
+  console.log(isEnabled);
+
+  // Close the browser
+  await browser.close();
+})();
+```
+
+The `element.getAttribute` method is used to get the value of the "disabled" attribute for the element. This attribute determines whether or not the element is enabled on the page.
+
+If the "disabled" attribute is set to "true", it means that the element is not enabled on the page, and the `isEnabled` variable is set to `false`. Otherwise, the `isEnabled` variable is set to `true`, indicating that the element is enabled on the page.
