@@ -246,3 +246,38 @@ await browser.close()
 ```
 
 In this example, we use the `playwright.devices` object to retrieve the device descriptor for the iPhone 6, and then pass the device descriptor to the launch and `newContext` methods when creating the browser and context. This allows Playwright to simulate the iPhone 6 when running the tests, allowing us to easily test on mobile devices.
+
+```javascript
+const { playwright } = require('playwright');
+
+(async () => {
+  const browser = await playwright.chromium.launch();
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.goto('http://localhost:3000');
+
+  try {
+    // Wait for the "submit" button to be displayed on the page
+    await page.waitFor('button.submit-button');
+
+    // Click the "submit" button
+    await page.click('button.submit-button');
+
+    // Wait for the page to navigate to the next page
+    await page.waitForNavigation();
+
+    // Assert that the correct page is displayed
+    const url = await page.url();
+    expect(url).toBe('http://localhost:3000/welcome');
+  } catch (error) {
+    // Handle the error and continue with the test
+    console.error(error);
+  }
+
+  await browser.close();
+})();
+```
+
+In this example, the `try` and `catch` statements are used to handle any exceptions that are thrown by the `waitFor`, `click`, or `waitForNavigation` methods. If an exception is thrown, the error will be logged to the console and the test will continue.
+
+You can use the `catch` method with any asynchronous method in Playwright that may throw an exception, such as `page.fill` or `page.selectOption`. For more information and examples of how to handle exceptions in Playwright, you can refer to the Playwright documentation.
