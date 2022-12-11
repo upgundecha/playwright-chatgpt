@@ -555,3 +555,47 @@ const playwright = require('playwright');
 ```
 
 The `element.boundingBox method` is used to get the size and location of the element. This method returns an object with the properties `x`, `y`, `width`, and `height`, which represent the coordinates of the top-left corner of the element, as well as the element's width and height, respectively.
+
+## Working with the Canvas element
+
+To interact with a canvas element on a web page using Playwright, you can use the `page.$eval` method, which allows you to evaluate JavaScript code in the context of the page and interact with the canvas element.
+
+Here is an example that shows how to use the `page.$eval` method to interact with a canvas element on a web page:
+
+```javascript
+const playwright = require('playwright');
+
+(async () => {
+  // Start a new browser instance
+  const browser = await playwright.chromium.launch();
+
+  // Create a new page
+  const page = await browser.newPage();
+
+  // Navigate to a web page with a canvas element
+  await page.goto('https://example.com/canvas');
+
+  // Find the canvas element on the page
+  const canvas = await page.$('#my-canvas');
+
+  // Use the $eval method to interact with the canvas element
+  await canvas.$eval('#my-canvas', (canvas) => {
+    // Get the canvas context
+    const ctx = canvas.getContext('2d');
+
+    // Draw a circle on the canvas
+    ctx.beginPath();
+    ctx.arc(100, 100, 50, 0, 2 * Math.PI);
+    ctx.fill();
+  });
+
+  // Close the browser
+  await browser.close();
+})();
+```
+
+n this example, the `playwright.chromium.launch` method is used to start a new browser instance, and the `browser.newPage` method is used to create a new page. The `page.goto` method is then used to navigate to a web page with a canvas element, and the `page.$` method is used to find the canvas element on the page.
+
+Once the canvas element is found, the `canvas.$eval` method is used to evaluate JavaScript code in the context of the page and interact with the canvas element. In this case, the code uses the `canvas.getContext` method to get the canvas context, and then uses the context to draw a circle on the canvas.
+
+Overall, this code shows how you can use Playwright to interact with a canvas element on a web page and perform actions such as drawing or animating on the canvas. You can use similar approaches to interact with other elements or components on the page, such as images, videos, or interactive forms.
