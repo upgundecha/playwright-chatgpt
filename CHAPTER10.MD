@@ -1,5 +1,8 @@
 # Chapter 10 - Design Patterns
 
+> **Warning**
+> Palgrism detected by Grammerly - 2%
+
 ## Playwright Design Patterns
 
 Playwright supports several common design patterns that can be used when writing tests. These patterns include the page object pattern, the page fragment pattern, the data-driven testing pattern, and the behavior-driven development (BDD) pattern.
