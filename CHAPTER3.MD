@@ -1,7 +1,7 @@
 # Chapter 3 - Finding Elements
 
 > **Note** 
-> Palgrism detected by Grammerly - 4%
+> Plagiarism detected by Grammerly - 4%
 
 ## How does Playwright identifies HTML elements?
 
