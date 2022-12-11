@@ -1,8 +1,7 @@
 # Chapter 1 - Introduction
 
-
 > **Warning**
-> Palgrism detected by Grammerly 4%
+> Palgrism detected by Grammerly - 4%
 
 ## What is Playwright?
 
