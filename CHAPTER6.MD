@@ -203,6 +203,15 @@ In this example, the `waitForFunction` method is used twice: once to wait for th
 
 The `waitForFunction` method takes a JavaScript function as its first argument, which specifies the condition that you want to wait for. The function should return a truthy value when the condition is met, and a falsy value otherwise. The `waitForFunction` method also takes an optional second argument, which is an object that can contain options like a timeout or a polling interval. If the specified condition is not met within the specified timeout, the `waitForFunction` method will throw an error.
 
+## Switch Browser Tabs
+
+In Playwright, you can use the `page.waitForEvent` method to wait for a page to be created by a web application, and then use the `page.bringToFront` method to switch to the new page. This can be useful if you want to simulate a user clicking a link or button that opens a new tab in a web application.
+
+Here is a simple example of how you might use the `page.waitForEvent` and `page.bringToFront` methods in Playwright to switch to a newly-opened tab:
+
+```javascript
+
+
 ## Testing the clipboard contents
 
 To test clipboard contents in Playwright, you can use the `page.clipboard` property to access the clipboard and assert its contents using the expect function from the chai library.
