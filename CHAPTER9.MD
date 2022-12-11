@@ -246,3 +246,39 @@ await browser.close()
 ```
 
 In this example, we use the `playwright.devices` object to retrieve the device descriptor for the iPhone 6, and then pass the device descriptor to the launch and `newContext` methods when creating the browser and context. This allows Playwright to simulate the iPhone 6 when running the tests, allowing us to easily test on mobile devices.
+
+## Running Playwright tests with Selenium Grid
+
+Playwright tests can be executed with Selenium Grid. To do this, you can use the `playwright-to-webdriver` package, which provides a bridge between Playwright and Selenium WebDriver. This allows you to run Playwright tests on a Selenium Grid, which can be useful if you want to use the scalability and flexibility of Selenium Grid for your tests.
+
+Here is an example of how you might use the `playwright-to-webdriver` package to execute Playwright tests on a Selenium Grid:
+
+```javascript
+const { playwright } = require('playwright');
+const { webdriver } = require('playwright-to-webdriver');
+const { remote } = require('selenium-webdriver');
+
+(async () => {
+  // Create a Playwright browser instance
+  const browser = await playwright.chromium.launch();
+
+  // Convert the Playwright browser instance to a Selenium WebDriver instance
+  const seleniumWebDriver = webdriver(browser);
+
+  // Create a Selenium WebDriver remote instance using the Selenium Grid URL
+  const driver = new remote.Driver(
+    'http://localhost:4444/wd/hub',
+    seleniumWebDriver,
+  );
+
+  // Run tests using the Selenium WebDriver instance
+  await runTests(driver);
+
+  // Close the browser instance
+  await browser.close();
+})();
+```
+
+In this example, the `playwright-to-webdriver` package is used to convert the Playwright browser instance to a Selenium WebDriver instance. The webdriver function takes the Playwright browser instance as an argument and returns the corresponding Selenium WebDriver instance.
+
+The Selenium WebDriver instance is then passed to a `remote.Driver` constructor, which creates a Selenium remote instance that can be used to execute tests.
