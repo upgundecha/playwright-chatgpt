@@ -74,3 +74,6 @@ describe('my tests', () => {
 ```
 
 In this example, we use the `node-fetch` library to send a request to the REST API and verify the response. We use the expect function from the chai library to assert that the response has the expected status code, headers, and body.
+
+Note that this approach only allows us to test the responses from the API, and does not provide a way to test the functionality of the API itself. To test the functionality of a REST API, it is recommended to use a dedicated testing framework or library that is designed specifically for that purpose.
+
