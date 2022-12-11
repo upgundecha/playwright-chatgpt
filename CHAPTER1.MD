@@ -1,7 +1,7 @@
 # Chapter 1 - Introduction
 
 > **Note**
-> Palgrism detected by Grammerly - 4%
+> Plagiarism detected by Grammerly - 4%
 
 ## What is Playwright?
 
