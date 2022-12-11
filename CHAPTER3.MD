@@ -38,7 +38,7 @@ These are just a few examples of the many different CSS selectors that you can u
 
 Overall, CSS selectors are a powerful and flexible way to identify HTML elements on a web page, and Playwright makes it easy to use them in your tests.
 
-## Working with shadow DOM
+## Working with the shadow DOM
 
 The shadow DOM is a web standard that allows developers to create isolated, encapsulated DOM trees within a web page. These shadow trees are hidden from the main document, and can only be accessed through JavaScript code that is executed in the context of the shadow tree.
 
