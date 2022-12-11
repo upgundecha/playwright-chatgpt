@@ -1,5 +1,19 @@
 # Chapter 6 - Interacting with Page
 
+## Using the `page` object
+
+In Playwright, the `page` object provides several methods for navigating within a web page or between multiple pages. These methods include:
+
+- `page.click(selector)`: This method simulates a click on an element that matches the given CSS selector.
+- `page.fill(selector, value)`: This method fills in a form field with the given value. The field is selected using a CSS selector.
+- `page.goto(url)`: This method navigates the page to the specified URL.
+- `page.keyboard.press(key, options): This method simulates a press of the specified key on the keyboard. The options argument can be used to specify modifier keys like Shift or Alt.
+- `page.mouse.click(x, y, options)`: This method simulates a click at the specified coordinates on the page. The options argument can be used to specify modifier keys like Shift or Alt.
+- `page.reload()`: This method reloads the current page.
+- `page.screenshot(path)`: This method saves a screenshot of the current page to the specified file path.
+- `page.selectOption(selector, value)`: This method selects an option from a dropdown menu. The menu is selected using a CSS selector, and the option is specified by its value.
+- `page.type(selector, text)`: This method types the given text into a form field or other editable element. The element is selected using a CSS selector.
+
 ## Using `waitFor`
 
 In Playwright, you can use the `waitFor` method to pause your test script until a specific condition is met. This can be useful if you need to wait for an element to be displayed on the page, or for an asynchronous operation to complete before continuing with your test.
@@ -332,3 +346,45 @@ describe('my tests', () => {
 ```
 
 In this example, we use the `page.evaluate` method to execute JavaScript code that sets and retrieves values from the local storage using the `localStorage` API.
+
+## Handling Exceptions
+
+In Playwright, you can use the catch method to handle exceptions that are thrown by asynchronous methods like page.click or page.waitFor. This can be useful if you want to handle errors gracefully and continue with your test, rather than allowing the test to fail and stop.
+
+Here is a simple example of how you might use the catch method in Playwright to handle exceptions:
+
+```javascript
+const { playwright } = require('playwright');
+
+(async () => {
+  const browser = await playwright.chromium.launch();
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.goto('http://localhost:3000');
+
+  try {
+    // Wait for the "submit" button to be displayed on the page
+    await page.waitFor('button.submit-button');
+
+    // Click the "submit" button
+    await page.click('button.submit-button');
+
+    // Wait for the page to navigate to the next page
+    await page.waitForNavigation();
+
+    // Assert that the correct page is displayed
+    const url = await page.url();
+    expect(url).toBe('http://localhost:3000/welcome');
+  } catch (error) {
+    // Handle the error and continue with the test
+    console.error(error);
+  }
+
+  await browser.close();
+})();
+```
+
+In this example, the `try` and `catch` statements are used to handle any exceptions that are thrown by the `waitFor`, `click`, or `waitForNavigation` methods. If an exception is thrown, the error will be logged to the console and the test will continue.
+
+You can use the `catch` method with any asynchronous method in Playwright that may throw an exception, such as `page.fill` or `page.selectOption`. For more information and examples of how to handle exceptions in Playwright, you can refer to the Playwright documentation.
+
