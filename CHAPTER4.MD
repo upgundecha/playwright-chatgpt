@@ -594,7 +594,7 @@ const playwright = require('playwright');
 })();
 ```
 
-n this example, the `playwright.chromium.launch` method is used to start a new browser instance, and the `browser.newPage` method is used to create a new page. The `page.goto` method is then used to navigate to a web page with a canvas element, and the `page.$` method is used to find the canvas element on the page.
+In this example, the `playwright.chromium.launch` method is used to start a new browser instance, and the `browser.newPage` method is used to create a new page. The `page.goto` method is then used to navigate to a web page with a canvas element, and the `page.$` method is used to find the canvas element on the page.
 
 Once the canvas element is found, the `canvas.$eval` method is used to evaluate JavaScript code in the context of the page and interact with the canvas element. In this case, the code uses the `canvas.getContext` method to get the canvas context, and then uses the context to draw a circle on the canvas.
 
