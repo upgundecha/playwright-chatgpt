@@ -1,5 +1,8 @@
 # Chapter 9 - Common Testing Scenarios
 
+> **Note** 
+> Plagiarism detected by Grammerly - 2%
+
 ## Mocking API's during testing
 
 Playwright does not include any built-in support for mocking APIs during testing. However, it is possible to use external libraries and tools to mock APIs and test how a web page interacts with them.
