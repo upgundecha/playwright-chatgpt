@@ -163,4 +163,47 @@ describe('my tests', () => {
 
 In this example, we use the `Accessibility` class to create an instance of the `accessibility` object, and then use the `accessibility.snapshot` method to retrieve the accessibility information for the page. We then use the expect function from the chai library to assert that the accessibility information satisfies the accessibility standards. This allows us to easily test the accessibility of a page in Playwright.
 
+## Testing Visual Regression
 
+Visual regression testing is a technique used to detect changes in the visual appearance of a website or application. It involves taking screenshots of a website or application, and then comparing the screenshots to previous versions to detect any visual changes or differences.
+
+Visual regression testing can be used to ensure that changes to a website or application do not introduce visual regressions, such as changes to the layout, styling, or positioning of elements. It can also be used to verify that the appearance of a website or application remains consistent across different browsers, devices, or screen sizes.
+
+Visual regression testing is typically performed using specialized tools that automate the process of taking screenshots and comparing them to previous versions. These tools can help to identify visual regressions quickly and accurately, allowing developers to fix any issues before they are released to users.
+
+Playwright supports visual regression testing through the `playwright-to-png` library, which allows you to take screenshots of a page in Playwright and compare them to previous screenshots to detect visual changes. However, there are various other visual regression vendors who support Playwright.
+
+Here is an example of how to perform visual regression testing in Playwright:
+
+```javascript
+const { playwright } = require('playwright')
+const toPng = require('playwright-to-png')
+
+describe('my tests', () => {
+  // Define a test for visual regression
+  it('should not have visual regressions', async () => {
+    // Launch a browser instance
+    const browser = await playwright.chromium.launch()
+
+    // Create a new context (i.e. a new incognito window)
+    const context = await browser.newContext()
+
+    // Create a new page
+    const page = await context.newPage()
+
+    // Navigate to a website
+    await page.goto('https://www.example.com')
+
+    // Take a screenshot of the page
+    const screenshot = await toPng(page)
+
+    // Compare the screenshot to the expected screenshot
+    expect(screenshot).to.matchImageSnapshot()
+
+    // Close the browser instance
+    await browser.close()
+  })
+})
+```
+
+In this example, we use the `playwright-to-png` library to take a screenshot of the page using the `toPng` function, and then use the expect function from the chai library to compare the screenshot to the expected screenshot. This allows us to easily perform visual regression testing in Playwright.
