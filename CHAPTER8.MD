@@ -1,7 +1,7 @@
 # Chapter 8 - Running tests in CI
 
 > **Note** 
-> Plagiarism detected by Grammerly - 3%
+> Plagiarism detected by Grammarly - 3%
 
 To run Playwright tests in a continuous integration (CI) environment, you can use a tool like GitHub Actions or Jenkins to automate the process of running your tests and publishing the results.
 

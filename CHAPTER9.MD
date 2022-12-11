@@ -1,7 +1,7 @@
 # Chapter 9 - Common Testing Scenarios
 
 > **Note** 
-> Plagiarism detected by Grammerly - 2%
+> Plagiarism detected by Grammarly - 2%
 
 ## Mocking API's during testing
 

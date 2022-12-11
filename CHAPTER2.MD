@@ -1,7 +1,7 @@
 # Chapter 2 - Getting Started
 
 > **Note**
-> Plagiarism detected by Grammerly - 6%
+> Plagiarism detected by Grammarly - 6%
 
 ## How to setup Playwright development environment?
 

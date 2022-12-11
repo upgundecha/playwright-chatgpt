@@ -1,7 +1,7 @@
 # Chapter 5 - Performing Keyboard and Mouse Events
 
 > **Note** 
-> Plagiarism detected by Grammerly - 6%
+> Plagiarism detected by Grammarly - 6%
 
 ## Performing keyboard events
 
