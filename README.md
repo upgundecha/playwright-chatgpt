@@ -1,6 +1,13 @@
 # playwright-chatgpt
 
+This is an experiemental book written on Playwright testing library with the help of OpenAI ChatGPT. As OpenAI dataset is upto 2021, the content of this book are not up to date with the current release of the tool.
+
+The goal of this experient was to write a technical book in couple of hours using the ChatGPT prompts and responses.
+
+The code examples offered by ChatGPT are tested and limited to it's dataset.
+
 ## Index
+
 - [Chapter 1 - Introduction](CHAPTER1.MD)
 - [Chapter 2 - Getting Started](CHAPTER2.MD)
 - [Chapter 3 - Finding Elements](CHAPTER3.MD)
@@ -11,3 +18,5 @@
 - [Chapter 8 - Running Tests in CI](CHAPTER8.MD)
 - [Chapter 9 - Common Testing Scenarios](CHAPTER9.MD)
 - [Chapter 10 - Design Patterns](CHAPTER10.MD)
+
+The information provided here is as generated from ChatGPT. There are minor edits done to add more context.
