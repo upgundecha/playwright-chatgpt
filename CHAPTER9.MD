@@ -77,7 +77,7 @@ In this example, we use the `node-fetch` library to send a request to the REST A
 
 Note that this approach only allows us to test the responses from the API, and does not provide a way to test the functionality of the API itself. To test the functionality of a REST API, it is recommended to use a dedicated testing framework or library that is designed specifically for that purpose.
 
-## Testing peformance
+## Testing Peformance
 
 o test performance in Playwright, you can use the `page.metrics` property to access performance metrics, such as the time to first paint or the time to first contentful paint. You can then assert the values of these metrics using the expect function from the chai library.
 
@@ -119,7 +119,7 @@ describe('my tests', () => {
 
 In this example, we use the `page.metrics` property to access the performance metrics for the page, and then use the expect function from the chai library to assert the values of the metrics. This allows us to easily test the performance of a page in Playwright.
 
-## Testing accessibility
+## Testing Accessibility
 
 Yes, Playwright supports accessibility testing through the `Accessibility` class, which provides methods for retrieving accessibility information from a page and asserting it using the `expect` function from the chai library.
 
@@ -207,3 +207,42 @@ describe('my tests', () => {
 ```
 
 In this example, we use the `playwright-to-png` library to take a screenshot of the page using the `toPng` function, and then use the expect function from the chai library to compare the screenshot to the expected screenshot. This allows us to easily perform visual regression testing in Playwright.
+
+## Testing on Mobile devices
+
+Yes, Playwright supports testing on mobile devices through the `deviceDescriptors` module, which provides device descriptors for a variety of popular mobile devices.
+
+To test on a mobile device in Playwright, you can use the `playwright.devices` object to retrieve the device descriptor for the device you want to test on, and then pass the device descriptor to the launch or connect method of the playwright object when creating the browser or browser context.
+
+Here is an example of how to test on a mobile device in Playwright:
+
+```javascript
+const { playwright } = require('playwright')
+
+// Use the playwright.devices object to retrieve the device descriptor for the iPhone 6
+const iPhone6 = playwright.devices['iPhone 6']
+
+// Launch a browser instance that simulates the iPhone 6
+const browser = await playwright.chromium.launch({
+  headless: false,
+  device: iPhone6,
+})
+
+// Create a new context (i.e. a new incognito window) that simulates the iPhone 6
+const context = await browser.newContext({
+  device: iPhone6,
+})
+
+// Create a new page that simulates the iPhone 6
+const page = await context.newPage({
+  device: iPhone6,
+})
+
+// Navigate to a website
+await page.goto('https://www.example.com')
+
+// Close the browser instance
+await browser.close()
+```
+
+In this example, we use the `playwright.devices` object to retrieve the device descriptor for the iPhone 6, and then pass the device descriptor to the launch and `newContext` methods when creating the browser and context. This allows Playwright to simulate the iPhone 6 when running the tests, allowing us to easily test on mobile devices.
