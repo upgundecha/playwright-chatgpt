@@ -1,5 +1,8 @@
 # Chapter 8 - Running tests in CI
 
+> **Note** 
+> Plagiarism detected by Grammerly - 3%
+
 To run Playwright tests in a continuous integration (CI) environment, you can use a tool like GitHub Actions or Jenkins to automate the process of running your tests and publishing the results.
 
 For example, using GitHub Actions, you can define a workflow in your repository that specifies the steps to run your tests, such as installing dependencies, building your code, and running your tests. You can then trigger the workflow automatically when new code is pushed to your repository, or on a schedule, and view the results in the Actions tab of your repository.
