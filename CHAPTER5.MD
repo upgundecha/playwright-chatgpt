@@ -1,5 +1,8 @@
 # Chapter 5 - Performing Keyboard and Mouse Events
 
+> **Note** 
+> Palgrism detected by Grammerly - 6%
+
 ## Performing keyboard events
 
 The `page.keyboard` object in Playwright is used to simulate keyboard events on a web page, such as typing text or pressing keys. It provides a number of methods and properties that you can use to interact with the keyboard in your tests or other code.
