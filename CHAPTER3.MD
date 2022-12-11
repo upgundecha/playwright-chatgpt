@@ -1,5 +1,8 @@
 # Chapter 3 - Finding Elements
 
+> **Note** 
+> Palgrism detected by Grammerly - 4%
+
 ## How does Playwright identifies HTML elements?
 
 Playwright uses CSS selectors to identify HTML elements on a web page. CSS selectors are patterns that match specific elements based on their attributes and relationship to other elements in the page.
