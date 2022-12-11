@@ -77,3 +77,90 @@ In this example, we use the `node-fetch` library to send a request to the REST A
 
 Note that this approach only allows us to test the responses from the API, and does not provide a way to test the functionality of the API itself. To test the functionality of a REST API, it is recommended to use a dedicated testing framework or library that is designed specifically for that purpose.
 
+## Testing peformance
+
+o test performance in Playwright, you can use the `page.metrics` property to access performance metrics, such as the time to first paint or the time to first contentful paint. You can then assert the values of these metrics using the expect function from the chai library.
+
+Here is an example of how to test performance in Playwright:
+
+```javascript
+const { expect } = require('chai')
+const { playwright } = require('playwright')
+
+describe('my tests', () => {
+  // Define a test for the performance metrics
+  it('should have the expected values', async () => {
+    // Launch a browser instance
+    const browser = await playwright.chromium.launch()
+
+    // Create a new context (i.e. a new incognito window)
+    const context = await browser.newContext()
+
+    // Create a new page
+    const page = await context.newPage()
+
+    // Navigate to a website
+    await page.goto('https://www.example.com')
+
+    // Use the page.metrics property to access the performance metrics
+    const metrics = await page.metrics()
+
+    // Use the expect function from the 'chai' library to assert the performance metrics
+    expect(metrics.timestamp).to.be.a('number')
+    expect(metrics.timings).to.be.an('object')
+    expect(metrics.timings.firstPaint).to.be.a('number')
+    expect(metrics.timings.firstContentfulPaint).to.be.a('number')
+
+    // Close the browser instance
+    await browser.close()
+  })
+})
+```
+
+In this example, we use the `page.metrics` property to access the performance metrics for the page, and then use the expect function from the chai library to assert the values of the metrics. This allows us to easily test the performance of a page in Playwright.
+
+## Testing accessibility
+
+Yes, Playwright supports accessibility testing through the `Accessibility` class, which provides methods for retrieving accessibility information from a page and asserting it using the `expect` function from the chai library.
+
+Here is an example of how to test accessibility in Playwright:
+
+```javascript
+const { expect } = require('chai')
+const { playwright } = require('playwright')
+
+describe('my tests', () => {
+  // Define a test for accessibility
+  it('should be accessible', async () => {
+    // Launch a browser instance
+    const browser = await playwright.chromium.launch()
+
+    // Create a new context (i.e. a new incognito window)
+    const context = await browser.newContext()
+
+    // Create a new page
+    const page = await context.newPage()
+
+    // Navigate to a website
+    await page.goto('https://www.example.com')
+
+    // Create an instance of the Accessibility class
+    const accessibility = new Accessibility(context)
+
+    // Use the accessibility.snapshot method to retrieve the accessibility information for the page
+    const snapshot = await accessibility.snapshot({
+      interestingOnly: false,
+    })
+
+    // Use the expect function from the 'chai' library to assert the accessibility information
+    expect(snapshot).to.satisfyA11yStandards()
+
+    // Close the browser instance
+    await browser.close()
+  })
+})
+```
+
+In this example, we use the `Accessibility` class to create an instance of the `accessibility` object, and then use the `accessibility.snapshot` method to retrieve the accessibility information for the page. We then use the expect function from the chai library to assert that the accessibility information satisfies the accessibility standards. This allows us to easily test the accessibility of a page in Playwright.
+
+
