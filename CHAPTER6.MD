@@ -1,5 +1,8 @@
 # Chapter 6 - Interacting with Page
 
+> **Note** 
+> Palgiarism detected by Grammerly - 5%
+
 ## Using the `page` object
 
 In Playwright, the `page` object provides several methods for navigating within a web page or between multiple pages. These methods include:
