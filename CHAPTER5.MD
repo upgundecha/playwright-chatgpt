@@ -1,6 +1,6 @@
 # Chapter 5 - Performing Keyboard and Mouse Events
 
-## How to perform keyboard events
+## Performing keyboard events
 
 The `page.keyboard` object in Playwright is used to simulate keyboard events on a web page, such as typing text or pressing keys. It provides a number of methods and properties that you can use to interact with the keyboard in your tests or other code.
 
@@ -94,4 +94,120 @@ Once the input field and textarea are found, the `input.type` method is used to 
 
 Next, the `textarea.focus` method is used to focus the textarea, and the `page.keyboard.type` method is used again, this time to simulate pressing Ctrl + V to paste the copied
 
+## Performing Mouse Events
 
+In Playwright, you can use the page.mouse object to simulate mouse events, such as clicking, double-clicking, or hovering over an element on a web page. This can be useful if you want to test the behavior of a web application in response to these events.
+
+Here is a simple example of how you might use the `page.mouse` object in Playwright to perform mouse events:
+
+```javascript
+const { playwright } = require('playwright');
+
+(async () => {
+  const browser = await playwright.chromium.launch();
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.goto('http://localhost:3000');
+
+  // Click an element on the page
+  await page.mouse.click(100, 100);
+
+  // Double-click an element on the page
+  await page.mouse.doubleClick(200, 200);
+
+  // Hover over an element on the page
+  await page.mouse.move(300, 300);
+
+  await browser.close();
+})();
+```
+
+In this example, the `page.mouse` object is used to simulate a click, double-click, and hover over an element on the page. The `click` and `doubleClick` methods take the x and y coordinates of the element as arguments, and the `move` method takes the coordinates of the element to hover over.
+
+The `page.mouse` object in Playwright provides several methods for simulating mouse events on a web page. These methods include:
+
+- `page.mouse.click(x, y, options)`: This method simulates a click at the specified coordinates on the page. The options argument can be used to specify modifier keys like Shift or Alt.
+- `page.mouse.doubleClick(x, y, options)`: This method simulates a double-click at the specified coordinates on the page. The options argument can be used to specify modifier keys like Shift or Alt.
+- `page.mouse.down(x, y, options)`: This method simulates pressing the left mouse button at the specified coordinates on the page. The options argument can be used to specify modifier keys like Shift or Alt.
+- `page.mouse.move(x, y, options)`: This method simulates moving the mouse cursor to the specified coordinates on the page. The options argument can be used to specify modifier keys like Shift or Alt.
+- `page.mouse.up(x, y, options)`: This method simulates releasing the left mouse button at the specified coordinates on the page. The options argument can be used to specify modifier keys like Shift or Alt.
+
+These are just a few examples of the methods that the `page.mouse` object provides in Playwright.
+
+## Performing Drag and Drop
+
+In Playwright, you can use the `page.drag` and `page.drop` methods to simulate a drag and drop operation on a web page. This can be useful if you want to test the behavior of a web application when an element is dragged and dropped onto another element.
+
+Here is a simple example of how you might use the `page.drag` and `page.drop` methods in Playwright to perform a drag and drop operation:
+
+```javascript
+const { playwright } = require('playwright');
+
+(async () => {
+  const browser = await playwright.chromium.launch();
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.goto('http://localhost:3000');
+
+  // Get the coordinates of the source element
+  const source = await page.$('#source');
+  const { x: sourceX, y: sourceY } = await source.boundingBox();
+
+  // Get the coordinates of the target element
+  const target = await page.$('#target');
+  const { x: targetX, y: targetY } = await target.boundingBox();
+
+  // Drag the source element to the target element
+  await page.drag(sourceX, sourceY, targetX, targetY);
+  await page.drop();
+
+  await browser.close();
+})();
+```
+
+In this example, the `page.drag` method is used to simulate dragging the source element to the target element on the page. The `page.drag` method takes the x and y coordinates of the source element and the target element as arguments, and simulates moving the mouse cursor from the source coordinates to the target coordinates.
+
+Once the drag operation has been simulated, the `page.drop` method is called to simulate releasing the mouse button, completing the drag and drop operation.
+
+## Performing chain of Keyboard and Mouse events
+
+In Playwright, you can use the `page.keyboard` and `page.mouse` objects to simulate complex mouse and keyboard events on a web page. This can be useful if you want to test the behavior of a web application in response to these events, such as dragging and dropping an element while holding down a modifier key like Shift or Alt.
+
+Here is a simple example of how you might use the `page.keyboard` and `page.mouse` objects in Playwright to perform complex mouse and keyboard events:
+
+```javascript
+const { playwright } = require('playwright');
+
+(async () => {
+  const browser = await playwright.chromium.launch();
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.goto('http://localhost:3000');
+
+  // Press the Shift key
+  await page.keyboard.down('Shift');
+
+  // Get the coordinates of the source element
+  const source = await page.$('#source');
+  const { x: sourceX, y: sourceY } = await source.boundingBox();
+
+  // Get the coordinates of the target element
+  const target = await page.$('#target');
+  const { x: targetX, y: targetY } = await target.boundingBox();
+
+  // Drag the source element to the target element
+  await page.mouse.move(sourceX, sourceY);
+  await page.mouse.down();
+  await page.mouse.move(targetX, targetY);
+  await page.mouse.up();
+
+  // Release the Shift key
+  await page.keyboard.up('Shift');
+
+  await browser.close();
+})();
+```
+
+In this example, the `page.keyboard.down` and `page.keyboard.up` methods are used to press and release the Shift key, respectively. This simulates holding down the Shift key while performing a drag and drop operation using the `page.mouse` object.
+
+The page.mouse object is used to simulate moving the mouse cursor to the source element, pressing the left mouse button, moving the mouse cursor to the target element, and releasing the mouse button. This simulates dragging the source element to the target element on the page.
