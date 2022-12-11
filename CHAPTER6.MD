@@ -1,7 +1,7 @@
 # Chapter 6 - Interacting with Page
 
 > **Note** 
-> Palgiarism detected by Grammerly - 5%
+> Plagiarism detected by Grammerly - 5%
 
 ## Using the `page` object
 
