@@ -353,3 +353,217 @@ The YAML file
 ```
 
 In this example, we use the `yaml.safeLoad` method to read a YAML file and parse the data into an array of objects. We then loop through each object in the array and define a test for each one. In the test, we use Playwright to launch a browser instance, navigate to a website that requires input, and fill in a form on the website using the input value from the YAML file. We then use the expected value from the YAML file to assert the result. This allows us to easily parameterize our tests using data from a YAML file, and automate the process of filling in forms and asserting the results using Playwright.
+
+## Parameterizing test using Excel file
+
+Here is an example of using an Excel file to parameterize tests in JavaScript using Playwright and the Mocha testing framework:
+
+```javascript
+const { expect } = require('chai')
+const xlsx = require('xlsx')
+const { playwright } = require('playwright')
+
+describe('my tests', () => {
+  // Read the Excel file and parse the data into an array of objects
+  const workbook = xlsx.readFile('data.xlsx')
+  const sheet = workbook.Sheets[workbook.SheetNames[0]]
+  const data = xlsx.utils.sheet_to_json(sheet)
+
+  // Loop through each object in the array
+  data.forEach(obj => {
+    // Define a test for each object
+    it(`should do something with ${obj.input}`, async () => {
+      // Launch a browser instance
+      const browser = await playwright.chromium.launch()
+
+      // Create a new context (i.e. a new incognito window)
+      const context = await browser.newContext()
+
+      // Create a new page
+      const page = await context.newPage()
+
+      // Navigate to a website that requires input
+      await page.goto('https://www.example.com/')
+
+      // Use the input value from the Excel file to fill in a form on the website
+      await page.type('#input-field', obj.input)
+
+      // Submit the form
+      await page.click('#submit-button')
+
+      // Use the expected value from the Excel file to assert the result
+      expect(await page.evaluate(() => document.querySelector('#result').textContent)).to.equal(obj.expected)
+
+      // Close the browser instance
+      await browser.close()
+    })
+  })
+})
+```
+
+In this example, we use the `xlsx` library to read an Excel file and parse the data into an array of objects. We then loop through each object in the array and define a test for each one. In the test, we use Playwright to launch a browser instance, navigate to a website that requires input, and fill in a form on the website using the input value from the Excel
+
+## Parameterizing test using a REST API 
+
+Here is an example of using a REST API to parameterize tests in JavaScript using Playwright and the Mocha testing framework:
+
+```javascript
+const { expect } = require('chai')
+const fetch = require('node-fetch')
+const { playwright } = require('playwright')
+
+describe('my tests', () => {
+  // Fetch the test data from the REST API
+  const response = await fetch('https://www.example.com/api/test-data')
+  const data = await response.json()
+
+  // Loop through each object in the array
+  data.forEach(obj => {
+    // Define a test for each object
+    it(`should do something with ${obj.input}`, async () => {
+      // Launch a browser instance
+      const browser = await playwright.chromium.launch()
+
+      // Create a new context (i.e. a new incognito window)
+      const context = await browser.newContext()
+
+      // Create a new page
+      const page = await context.newPage()
+
+      // Navigate to a website that requires input
+      await page.goto('https://www.example.com/')
+
+      // Use the input value from the REST API to fill in a form on the website
+      await page.type('#input-field', obj.input)
+
+      // Submit the form
+      await page.click('#submit-button')
+
+      // Use the expected value from the REST API to assert the result
+      expect(await page.evaluate(() => document.querySelector('#result').textContent)).to.equal(obj.expected)
+
+      // Close the browser instance
+      await browser.close()
+    })
+  })
+})
+```
+
+In this example, we use the `node-fetch` library to fetch test data from a REST API and parse the data into an array of objects. We then loop through each object in the array and define a test for each one. In the test, we use Playwright to launch a browser instance, navigate to a website that requires input, and fill in a form on the website using the input value from the REST API. We then use the expected value from the REST API to assert the result. This allows us to easily parameterize our tests using data from a REST API.
+
+### Parameterizing test using GraphQL API
+
+Here is an example of using GraphQL to parameterize tests in JavaScript using Playwright and the Mocha testing framework:
+
+```javascript
+const { expect } = require('chai')
+const { graphql } = require('graphql')
+const { playwright } = require('playwright')
+
+describe('my tests', () => {
+  // Define the GraphQL query to fetch the test data
+  const query = `
+    query {
+      testData {
+        input
+        expected
+      }
+    }
+  `
+
+  // Execute the GraphQL query and parse the data into an array of objects
+  const { data } = await graphql(schema, query)
+
+  // Loop through each object in the array
+  data.forEach(obj => {
+    // Define a test for each object
+    it(`should do something with ${obj.input}`, async () => {
+      // Launch a browser instance
+      const browser = await playwright.chromium.launch()
+
+      // Create a new context (i.e. a new incognito window)
+      const context = await browser.newContext()
+
+      // Create a new page
+      const page = await context.newPage()
+
+      // Navigate to a website that requires input
+      await page.goto('https://www.example.com/')
+
+      // Use the input value from the GraphQL query to fill in a form on the website
+      await page.type('#input-field', obj.input)
+
+      // Submit the form
+      await page.click('#submit-button')
+
+      // Use the expected value from the GraphQL query to assert the result
+      expect(await page.evaluate(() => document.querySelector('#result').textContent)).to.equal(obj.expected)
+
+      // Close the browser instance
+      await browser.close()
+    })
+  })
+})
+```
+In this example, we define a GraphQL query to fetch test data from a GraphQL server. We then use the `graphql` function to execute the query and parse the data into an array of objects. We then loop through each object in the array and define a test for each one.
+
+### Parameterizing test using a database
+
+Here is an example of using a PostgreSQL database to parameterize tests in JavaScript using Playwright and the Mocha testing framework:
+
+```javascript
+const { expect } = require('chai')
+const { Client } = require('pg')
+const { playwright } = require('playwright')
+
+describe('my tests', () => {
+  // Connect to the Postgres database
+  const client = new Client({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'test_db',
+    password: 'password',
+    port: 5432,
+  })
+  await client.connect()
+
+  // Query the database to fetch the test data
+  const res = await client.query('SELECT * FROM test_data')
+  const data = res.rows
+
+  // Loop through each object in the array
+  data.forEach(obj => {
+    // Define a test for each object
+    it(`should do something with ${obj.input}`, async () => {
+      // Launch a browser instance
+      const browser = await playwright.chromium.launch()
+
+      // Create a new context (i.e. a new incognito window)
+      const context = await browser.newContext()
+
+      // Create a new page
+      const page = await context.newPage()
+
+      // Navigate to a website that requires input
+      await page.goto('https://www.example.com/')
+
+      // Use the input value from the database to fill in a form on the website
+      await page.type('#input-field', obj.input)
+
+      // Submit the form
+      await page.click('#submit-button')
+
+      // Use the expected value from the database to assert the result
+      expect(await page.evaluate(() => document.querySelector('#result').textContent)).to.equal(obj.expected)
+
+      // Close the browser instance
+      await browser.close()
+    })
+  })
+
+  // Close the database connection
+  await client.end()
+})
+```
+
+In this example, we use the `pg` library to connect to a Postgres database and fetch test data from a table in the database. We then loop through each row in the table and define a test for each one. In the test, we use Playwright to launch a browser instance, navigate to a website that requires input, and fill in a form on the website using the input value from the database. We then use the expected value from the database to assert the result. This allows us to easily parameterize our tests using data from a Postgres database, and automate the process of filling in forms and asserting the results using Playwright.
