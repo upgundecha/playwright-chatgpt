@@ -476,3 +476,29 @@ In this example, the `try` and `catch` statements are used to handle any excepti
 
 You can use the `catch` method with any asynchronous method in Playwright that may throw an exception, such as `page.fill` or `page.selectOption`. For more information and examples of how to handle exceptions in Playwright, you can refer to the Playwright documentation.
 
+## Taking Screenshot
+
+n Playwright, you can use the `page.screenshot` method to take a screenshot of the current page. This can be useful if you want to capture a snapshot of a web page for testing or debugging purposes.
+
+Here is a simple example of how you might use the `page.screenshot` method in Playwright to take a screenshot of a page:
+
+```javascript
+const { playwright } = require('playwright');
+
+(async () => {
+  const browser = await playwright.chromium.launch();
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.goto('http://localhost:3000');
+
+  // Take a screenshot of the page and save it to a file
+  const screenshot = await page.screenshot();
+  await screenshot.save('screenshot.png');
+
+  await browser.close();
+})();
+```
+
+In this example, the `page.screenshot` method is used to take a screenshot of the current page. The method returns a `Buffer` object containing the screenshot data in PNG format.
+
+The `Buffer` object provides a `save` method, which can be used to save the screenshot data to a file on the local filesystem. In this example, the screenshot is saved to a file named `screenshot.png` in the current working directory.
