@@ -220,11 +220,75 @@ describe('my tests', () => {
   })
 })
 ```
+
 The JSON file
+
 ```json
 // data.json
 [  {    "input": "hello",    "expected": "hello world"  },  {    "input": "goodbye",    "expected": "goodbye world"  }]
 ```
+
 In this example, we use the `JSON.parse` method to read a JSON file and parse the data into an array of objects. We then loop through each object in the array and define a test for each one. In the test, we use Playwright to launch a browser instance, navigate to a website that requires input, and fill in a form on the website using the input value from the JSON file. We then use the expected value from the JSON file to assert the result. This allows us to easily parameterize our tests using data from a JSON file, and automate the process of filling in forms and asserting the results using Playwright.
 
 The JSON file in this example contains two objects, each with an `input` and an `expected` field. These fields are used to provide the input and expected output for the tests. When the tests are run, they will be executed once for each object in the JSON file, using the `input` and `expected` values from that object.
+
+## Parameterizing test using YAML file
+
+Here is an example of using a YAML file to parameterize tests in JavaScript using Playwright and the Mocha testing framework, along with an example YAML file:
+
+```javascript
+// tests.js
+const { expect } = require('chai')
+const fs = require('fs')
+const yaml = require('js-yaml')
+const { playwright } = require('playwright')
+
+describe('my tests', () => {
+  // Read the YAML file and parse the data into an array of objects
+  const data = yaml.safeLoad(fs.readFileSync('data.yaml', 'utf8'))
+
+  // Loop through each object in the array
+  data.forEach(obj => {
+    // Define a test for each object
+    it(`should do something with ${obj.input}`, async () => {
+      // Launch a browser instance
+      const browser = await playwright.chromium.launch()
+
+      // Create a new context (i.e. a new incognito window)
+      const context = await browser.newContext()
+
+      // Create a new page
+      const page = await context.newPage()
+
+      // Navigate to a website that requires input
+      await page.goto('https://www.example.com/')
+
+      // Use the input value from the YAML file to fill in a form on the website
+      await page.type('#input-field', obj.input)
+
+      // Submit the form
+      await page.click('#submit-button')
+
+      // Use the expected value from the YAML file to assert the result
+      expect(await page.evaluate(() => document.querySelector('#result').textContent)).to.equal(obj.expected)
+
+      // Close the browser instance
+      await browser.close()
+    })
+  })
+})
+```
+
+The YAML file
+
+```yaml
+# data.yaml
+- input: hello
+  expected: hello world
+- input: goodbye
+  expected: goodbye world
+```
+
+In this example, we use the `yaml.safeLoad` method to read a YAML file and parse the data into an array of objects. We then loop through each object in the array and define a test for each one. In the test, we use Playwright to launch a browser instance, navigate to a website that requires input, and fill in a form on the website using the input value from the YAML file. We then use the expected value from the YAML file to assert the result. This allows us to easily parameterize our tests using data from a YAML file, and automate the process of filling in forms and asserting the results using Playwright.
+
+The YAML file in this example contains two objects, each with an `input` and an `expected` field. These fields are used to provide the `input` and `expected` output for the tests. When the tests are run, they will be executed once for each object in the YAML file, using the `input` and `expected` values from that object.
