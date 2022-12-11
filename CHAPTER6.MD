@@ -14,6 +14,36 @@ In Playwright, the `page` object provides several methods for navigating within 
 - `page.selectOption(selector, value)`: This method selects an option from a dropdown menu. The menu is selected using a CSS selector, and the option is specified by its value.
 - `page.type(selector, text)`: This method types the given text into a form field or other editable element. The element is selected using a CSS selector.
 
+## Performing Browser Navigation
+
+In Playwright, you can use the `page.goto` method to navigate to a new page, the `page.reload` method to reload the current page, and the `page.goBack` and `page.goForward` methods to navigate to the previous or next page in the browser's history, respectively.
+
+Here is a simple example of how you might use these methods in Playwright to perform page navigation:
+
+```javascript
+const { playwright } = require('playwright');
+
+(async () => {
+  const browser = await playwright.chromium.launch();
+  const context = await browser.newContext();
+  const page = await context.newPage();
+
+  // Navigate to a new page
+  await page.goto('http://localhost:3000/home');
+
+  // Reload the current page
+  await page.reload();
+
+  // Navigate to the previous page in the browser's history
+  await page.goBack();
+
+  // Navigate to the next page in the browser's history
+  await page.goForward();
+
+  await browser.close();
+})();
+```
+
 ## Using `waitFor`
 
 In Playwright, you can use the `waitFor` method to pause your test script until a specific condition is met. This can be useful if you need to wait for an element to be displayed on the page, or for an asynchronous operation to complete before continuing with your test.
