@@ -1,5 +1,9 @@
 # Chapter 1 - Introduction
 
+
+> **Warning**
+> Palgrism detected by Grammerly 4%
+
 ## What is Playwright?
 
 Playwright is a tool for automating end-to-end tests for web applications. It is a Node.js library that allows developers to write tests using JavaScript or TypeScript, and it supports modern web browsers like Chrome, Firefox, and Microsoft Edge. Playwright can be used to test web applications by simulating user interactions, such as clicking buttons and filling out forms, and it can also be used to take screenshots and generate performance metrics. It is similar to other web automation tools like Selenium and Puppeteer, but it offers additional features and capabilities.
@@ -68,4 +72,3 @@ Some of the key limitations of Playwright include:
 - Playwright may not support all web technologies: Playwright is designed to work with modern web applications that use common web technologies like HTML, CSS, and JavaScript. It may not support more specialized or experimental web technologies, and it may not be able to automate tests for applications that use these technologies.
 
 Overall, while Playwright is a powerful and user-friendly tool for automating end-to-end tests, it has some limitations that you should be aware of. Depending on the specific needs and requirements of your project, you may need to use a different tool or approach to automate your tests.
-
