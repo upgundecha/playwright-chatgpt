@@ -44,6 +44,55 @@ const { playwright } = require('playwright');
 })();
 ```
 
+## Handling Alerts
+
+In Playwright, you can use the `page.on` method to handle alerts that are displayed by a web page. This can be useful if you want to automatically accept or dismiss an alert, or if you want to assert the alert's message or other properties.
+
+Here is a simple example of how you might use the `page.on` method in Playwright to handle an alert:
+
+```javascript
+const { playwright } = require('playwright');
+
+(async () => {
+  const browser = await playwright.chromium.launch();
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.goto('http://localhost:3000');
+
+  // Handle the "beforeunload" event, which is triggered when the page is about to be unloaded
+  page.on('dialog', async (dialog) => {
+    // Assert the alert's message
+    expect(dialog.message()).toBe('Are you sure you want to leave?');
+
+    // Accept the alert
+    await dialog.accept();
+  });
+
+  // Click a link that will trigger the "beforeunload" event
+  await page.click('a.leave-page-link');
+
+  // Wait for the page to navigate to the next page
+  await page.waitForNavigation();
+
+  // Assert that the correct page is displayed
+  const url = await page.url();
+  expect(url).toBe('http://localhost:3000/goodbye');
+
+  await browser.close();
+})();
+```
+
+In this example, the `page.on` method is used to register a handler for the dialog event, which is triggered when an alert is displayed by the page. The handler function receives a `dialog` object as its argument, which provides methods like `message` and `accept` for interacting with the alert. In this example, the alert's `message` is asserted, and the alert is accepted by calling the `accept` method.
+
+The `dialog` object in Playwright provides several methods for interacting with an alert, confirm, or prompt dialog that is displayed by a web page. These methods include:
+
+- `dialog.accept([promptText])`: This method accepts the dialog and returns a promise that resolves when the dialog has been accepted. If the dialog is a prompt dialog, you can pass a promptText argument to provide a value for the prompt.
+- `dialog.dismiss([promptText])`: This method dismisses the dialog and returns a promise that resolves when the dialog has been dismissed. If the dialog is a prompt dialog, you can pass a promptText argument to provide a value for the prompt.
+- `dialog.message()`: This method returns the message of the dialog as a string.
+- `dialog.type()`: This method returns the type of the dialog, which can be alert, confirm, or prompt.
+
+These are just a few examples of the methods that the dialog object provides in Playwright
+
 ## Using `waitFor`
 
 In Playwright, you can use the `waitFor` method to pause your test script until a specific condition is met. This can be useful if you need to wait for an element to be displayed on the page, or for an asynchronous operation to complete before continuing with your test.
