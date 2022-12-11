@@ -5,7 +5,7 @@ The goal of this experient was to write a technical book in couple of hours usin
 
 > **Warning**
 > As OpenAI dataset is upto 2021, the content of this book are not up to date with the current release of the tool.
-> The code examples offered by ChatGPT are not tested and limited to it's dataset.
+> The code examples offered by ChatGPT are not tested and limited to it's dataset or it's learning from the internet.
 
 ## Index
 
