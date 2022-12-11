@@ -126,3 +126,105 @@ main()
 ```
 
 In this example, we use Faker to generate a fake email address, which we then use to fill in a form on a website using Playwright. This could be useful for testing purposes, for example.
+
+## Parameterizing test using CSV file
+
+Here is an example of using a CSV file to parameterize tests in JavaScript using Playwright and the Mocha testing framework:
+
+```javascript
+const { expect } = require('chai')
+const fs = require('fs')
+const parse = require('csv-parse/lib/sync')
+const { playwright } = require('playwright')
+
+describe('my tests', () => {
+  // Read the CSV file and parse the data into an array of objects
+  const data = parse(fs.readFileSync('data.csv'), { columns: true })
+
+  // Loop through each row of data in the CSV file
+  data.forEach(row => {
+    // Define a test for each row of data
+    it(`should do something with ${row.input}`, async () => {
+      // Launch a browser instance
+      const browser = await playwright.chromium.launch()
+
+      // Create a new context (i.e. a new incognito window)
+      const context = await browser.newContext()
+
+      // Create a new page
+      const page = await context.newPage()
+
+      // Navigate to a website that requires input
+      await page.goto('https://www.example.com/')
+
+      // Use the input value from the CSV file to fill in a form on the website
+      await page.type('#input-field', row.input)
+
+      // Submit the form
+      await page.click('#submit-button')
+
+      // Use the expected value from the CSV file to assert the result
+      expect(await page.evaluate(() => document.querySelector('#result').textContent)).to.equal(row.expected)
+
+      // Close the browser instance
+      await browser.close()
+    })
+  })
+})
+```
+
+In this example, we use the `parse` function from the `csv-parse` library to read a CSV file and parse the data into an array of objects. We then loop through each row of data in the file and define a test for each one. In the test, we use Playwright to launch a browser instance, navigate to a website that requires input, and fill in a form on the website using the input value from the CSV file. We then use the expected value from the CSV file to assert the result. This allows us to easily parameterize our tests using data from a CSV file, and automate the process of filling in forms and asserting the results using Playwright.
+
+## Parameterizing test using JSON file
+
+Here is an example of using a JSON file to parameterize tests in JavaScript using Playwright and the Mocha testing framework, along with an example JSON file:
+
+```javascript
+// tests.js
+const { expect } = require('chai')
+const fs = require('fs')
+const { playwright } = require('playwright')
+
+describe('my tests', () => {
+  // Read the JSON file and parse the data into an array of objects
+  const data = JSON.parse(fs.readFileSync('data.json', 'utf8'))
+
+  // Loop through each object in the array
+  data.forEach(obj => {
+    // Define a test for each object
+    it(`should do something with ${obj.input}`, async () => {
+      // Launch a browser instance
+      const browser = await playwright.chromium.launch()
+
+      // Create a new context (i.e. a new incognito window)
+      const context = await browser.newContext()
+
+      // Create a new page
+      const page = await context.newPage()
+
+      // Navigate to a website that requires input
+      await page.goto('https://www.example.com/')
+
+      // Use the input value from the JSON file to fill in a form on the website
+      await page.type('#input-field', obj.input)
+
+      // Submit the form
+      await page.click('#submit-button')
+
+      // Use the expected value from the JSON file to assert the result
+      expect(await page.evaluate(() => document.querySelector('#result').textContent)).to.equal(obj.expected)
+
+      // Close the browser instance
+      await browser.close()
+    })
+  })
+})
+```
+The JSON file
+```json
+// data.json
+[  {    "input": "hello",    "expected": "hello world"  },  {    "input": "goodbye",    "expected": "goodbye world"  }]
+```
+In this example, we use the `JSON.parse` method to read a JSON file and parse the data into an array of objects. We then loop through each object in the array and define a test for each one. In the test, we use Playwright to launch a browser instance, navigate to a website that requires input, and fill in a form on the website using the input value from the JSON file. We then use the expected value from the JSON file to assert the result. This allows us to easily parameterize our tests using data from a JSON file, and automate the process of filling in forms and asserting the results using Playwright.
+
+The JSON file in this example contains two objects, each with an `input` and an `expected` field. These fields are used to provide the input and expected output for the tests. When the tests are run, they will be executed once for each object in the JSON file, using the `input` and `expected` values from that object.
