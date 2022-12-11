@@ -1,4 +1,4 @@
-# Chapter 9 - Advanced Topics
+# Chapter 9 - Common Testing Scenarios
 
 ## Mocking API's during testing
 
