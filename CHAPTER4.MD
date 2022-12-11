@@ -1,7 +1,7 @@
 # Chapter 4 - Element Interaction
 
 > **Note** 
-> Palgrism detected by Grammerly - 10%
+> Plagiarism detected by Grammerly - 10%
 
 ## How does Playwright interact with the web application?
 
