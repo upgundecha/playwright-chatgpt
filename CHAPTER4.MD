@@ -1,5 +1,8 @@
 # Chapter 4 - Element Interaction
 
+> **Note** 
+> Palgrism detected by Grammerly - 10%
+
 ## How does Playwright interact with the web application?
 
 Playwright is a low-level library for automating web browsers, so it does not interact directly with your web application. Instead, it uses the web browser's APIs to control the browser and interact with the web page.
