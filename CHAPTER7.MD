@@ -1,7 +1,7 @@
 # Chapter 7 - Parameterized Tests
 
 > **Note** 
-> Palgiarism detected by Grammerly - 3%
+> Plagiarism detected by Grammerly - 3%
 
 To parameterize test in Playwright, you can use the `playwright.each` method, which allows you to define a set of test data and run the same test multiple times with different data values. This can be useful for testing different scenarios or conditions, or for verifying that your code is working properly with a variety of input values.
 
