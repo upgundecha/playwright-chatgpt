@@ -1,5 +1,115 @@
 # Chapter 6 - Interacting with Page
 
+## Using `waitFor`
+
+In Playwright, you can use the `waitFor` method to pause your test script until a specific condition is met. This can be useful if you need to wait for an element to be displayed on the page, or for an asynchronous operation to complete before continuing with your test.
+
+Here is a simple example of how you might use the `waitFor` method in Playwright:
+
+```javascript
+const { playwright } = require('playwright');
+
+(async () => {
+  const browser = await playwright.chromium.launch();
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.goto('http://localhost:3000');
+
+  // Wait for the "submit" button to be displayed on the page
+  await page.waitFor('button.submit-button');
+
+  // Click the "submit" button
+  await page.click('button.submit-button');
+
+  // Wait for the page to navigate to the next page
+  await page.waitForNavigation();
+
+  // Assert that the correct page is displayed
+  const url = await page.url();
+  expect(url).toBe('http://localhost:3000/welcome');
+
+  await browser.close();
+})();
+```
+
+In this example, the `waitFor` method is used twice: once to wait for the "submit" button to be displayed on the page, and once to wait for the page to navigate to a new URL after the button is clicked.
+
+The `waitFor` method takes a CSS selector as its first argument, which specifies the element that you want to wait for. It also takes an optional second argument, which is an object that can contain options like a timeout or a polling interval. If the specified element is not found on the page within the specified timeout, the `waitFor` method will throw an error.
+
+Here is an example of how you might specify a timeout for the waitFor method in Playwright:
+
+```javascript
+const { playwright } = require('playwright');
+
+(async () => {
+  const browser = await playwright.chromium.launch();
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.goto('http://localhost:3000');
+
+  // Wait for the "submit" button to be displayed on the page, with a timeout of 5 seconds
+  await page.waitFor('button.submit-button', { timeout: 5000 });
+
+  // Click the "submit" button
+  await page.click('button.submit-button');
+
+  // Wait for the page to navigate to the next page, with a timeout of 5 seconds
+  await page.waitForNavigation({ timeout: 5000 });
+
+  // Assert that the correct page is displayed
+  const url = await page.url();
+  expect(url).toBe('http://localhost:3000/welcome');
+
+  await browser.close();
+})();
+```
+
+In this example, the `waitFor` method is called with a second argument that specifies a timeout of 5 seconds. If the specified element is not found on the page within 5 seconds, the `waitFor` method will throw an error.
+
+You can specify a different timeout for each call to the waitFor method, depending on your specific needs.
+
+### Using the `waitForFunction`
+
+In Playwright, you can use the `waitForFunction` method to pause your test script until a specific condition is met. This can be useful if you need to wait for a change in an element's attribute value or style, or for any other condition that cannot be checked using a simple CSS selector.
+
+Here is a simple example of how you might use the `waitForFunction` method in Playwright:
+
+```javascript
+const { playwright } = require('playwright');
+
+(async () => {
+  const browser = await playwright.chromium.launch();
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.goto('http://localhost:3000');
+
+  // Wait for the "submit" button to have a "disabled" attribute with a value of "false"
+  await page.waitForFunction(
+    () => document.querySelector('button.submit-button').getAttribute('disabled') === 'false',
+    { timeout: 5000 }
+  );
+
+  // Click the "submit" button
+  await page.click('button.submit-button');
+
+  // Wait for the "message" element to have a "display" style of "block"
+  await page.waitForFunction(
+    () => document.querySelector('div.message').style.display === 'block',
+    { timeout: 5000 }
+  );
+
+  // Assert that the "message" element is displayed on the page
+  const message = await page.$eval('div.message', (el) => el.innerText);
+  expect(message).toBe('Thanks for submitting the form!');
+
+  await browser.close();
+})();
+```
+
+In this example, the `waitForFunction` method is used twice: once to wait for the "submit" button to have a "disabled" attribute with a value of "false", and once to wait for the "message" element to have a "display" style of "block".
+
+The `waitForFunction` method takes a JavaScript function as its first argument, which specifies the condition that you want to wait for. The function should return a truthy value when the condition is met, and a falsy value otherwise. The `waitForFunction` method also takes an optional second argument, which is an object that can contain options like a timeout or a polling interval. If the specified condition is not met within the specified timeout, the `waitForFunction` method will throw an error.
+
 ## Testing the clipboard contents
 
 To test clipboard contents in Playwright, you can use the `page.clipboard` property to access the clipboard and assert its contents using the expect function from the chai library.
