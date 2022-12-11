@@ -599,3 +599,43 @@ In this example, the `playwright.chromium.launch` method is used to start a new 
 Once the canvas element is found, the `canvas.$eval` method is used to evaluate JavaScript code in the context of the page and interact with the canvas element. In this case, the code uses the `canvas.getContext` method to get the canvas context, and then uses the context to draw a circle on the canvas.
 
 Overall, this code shows how you can use Playwright to interact with a canvas element on a web page and perform actions such as drawing or animating on the canvas. You can use similar approaches to interact with other elements or components on the page, such as images, videos, or interactive forms.
+
+## Working with the SVG element
+
+To work with SVG elements in Playwright, you can use the `page.$eval` or `page.evaluate` method to query the SVG elements using CSS selectors, and then use the methods provided by Playwright to interact with the elements.
+
+Here is an example of how to use Playwright to click on an SVG element:
+
+```javascript
+const browser = await playwright.chromium.launch()
+const context = await browser.newContext()
+const page = await context.newPage()
+
+await page.goto('https://www.example.com/')
+
+// Query the SVG element using a CSS selector
+const svgElement = await page.$eval('#my-svg-element', el => el)
+
+// Use the click method provided by Playwright to click on the element
+await svgElement.click()
+```
+
+In this example, we use the `page.$eval` method to query the SVG element using a CSS selector, and then use the `click` method provided by Playwright to click on the element. This allows us to easily interact with SVG elements using Playwright.
+
+Note that some methods, such as `click`, are not available for all types of elements. In such cases, you can use the `page.evaluate` method to execute JavaScript code that interacts with the SVG elements directly. For example:
+
+```javascript
+const browser = await playwright.chromium.launch()
+const context = await browser.newContext()
+const page = await context.newPage()
+
+await page.goto('https://www.example.com/')
+
+// Query the SVG element using a CSS selector
+const svgElement = await page.$eval('#my-svg-element', el => el)
+
+// Use the page.evaluate method to execute JavaScript code that clicks on the element
+await page.evaluate(svgElement => svgElement.click(), svgElement)
+```
+
+In this example, we use the `page.evaluate` method to execute JavaScript code that clicks on the SVG element. This allows us to interact with the SVG element even if the Playwright API does not provide a method for the desired action.
