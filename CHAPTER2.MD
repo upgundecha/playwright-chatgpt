@@ -1,5 +1,8 @@
 # Chapter 2 - Getting Started
 
+> **Note**
+> Palgrism detected by Grammerly - 6%
+
 ## How to setup Playwright development environment?
 
 To set up a Playwright development environment, you will need to install a few things first. Here is a step-by-step guide:
