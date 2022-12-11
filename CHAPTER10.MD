@@ -1,7 +1,7 @@
 # Chapter 10 - Design Patterns
 
-> **Warning**
-> Palgrism detected by Grammerly - 2%
+> **Note**
+> Plagiarism detected by Grammerly - 2%
 
 ## Playwright Design Patterns
 
