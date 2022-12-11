@@ -85,3 +85,47 @@ await page.evaluate(shadowElement => shadowElement.click(), shadowElement)
 ```
 
 In this example, we use the `page.evaluate` method to execute JavaScript code that clicks on the shadow DOM element. This allows us to interact with the shadow DOM element even if the Playwright API does not provide a method for the desired action.
+
+## Storing locators in external file
+
+To store locator data in an external file, you can use the require function to import the file containing the locator data into your tests.
+
+Here is an example of how to store locator data in an external file and use it in Playwright tests:
+
+```javascript
+// Define a file named 'locators.js' that exports the locator data
+module.exports = {
+  usernameField: '#username',
+  passwordField: '#password',
+  loginButton: '#login',
+}
+
+// Import the locator data from the 'locators.js' file
+const locators = require('./locators')
+
+// Define a test that uses the locator data
+describe('my tests', () => {
+  it('should be able to login', async () => {
+    // Launch a browser instance
+    const browser = await playwright.chromium.launch()
+
+    // Create a new context (i.e. a new incognito window)
+    const context = await browser.newContext()
+
+    // Create a new page
+    const page = await context.newPage()
+
+    // Navigate to the login page
+    await page.goto('https://www.example.com/login')
+
+    // Use the locator data to interact with the page
+    await page.fill(locators.usernameField, 'username')
+    await page.fill(locators.passwordField, 'password')
+    await page.click(locators.loginButton)
+
+    // Close the browser instance
+    await browser.close()
+  })
+})
+```
+In this example, we define a file named `locators.js` that exports an object containing the locator data for the page. We then import the locator data from the `locators.js` file using the `require` function, and use the locator data to interact with the page in the tests. This allows us to easily reuse the locator data in multiple tests, and makes it easier to update the locator data if it changes.
